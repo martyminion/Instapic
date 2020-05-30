@@ -18,6 +18,7 @@ from django.urls import path,include
 from django.contrib.auth import views
 from django_registration.backends.one_step.views import RegistrationView
 from django.contrib.auth.views import LoginView
+from 
 
 urlpatterns = [
     path('admin/', admin.site.urls),

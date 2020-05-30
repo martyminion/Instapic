@@ -1,13 +1,17 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 User = get_user_model()
 
 class Profile(models.Model):
-  profile_photo = models.ImageField()
-  profile_bio = models.TextField()
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  profile_photo = models.ImageField(upload_to = 'photos/' ,blank=True)
+  profile_bio = models.TextField(blank=True)
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
 
   #save a profile
   def save_profile(self):
@@ -23,9 +27,23 @@ class Profile(models.Model):
   
   def delete_profile(self):
     self.delete()
+  @classmethod
+  def get_user_profile(cls,username):
+    user_profile = cls.objects.get(user = username)
+    return user_profile
+
 
   def __str__(self):
     return self.profile_bio
+
+@receiver(post_save,sender=User)
+def update_user_profile(sender,instance,created, **kwargs):
+  if created:
+    Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 
 
