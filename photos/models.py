@@ -11,8 +11,6 @@ class Profile(models.Model):
   profile_bio = models.TextField(blank=True)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-
-
   #save a profile
   def save_profile(self):
     self.save()
@@ -34,7 +32,7 @@ class Profile(models.Model):
 
 
   def __str__(self):
-    return self.profile_bio
+    return self.user.username
 
 @receiver(post_save,sender=User)
 def update_user_profile(sender,instance,created, **kwargs):
@@ -46,36 +44,33 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-
-class Comments(models.Model):
-  comment = models.TextField()
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-  @classmethod
-  def delete_comment(cls,username,name):
-    cls.objects.filter(user = username).filter(image = name).delete()
-  
-  def __str__(self):
-    return self.comment 
-
 class Image(models.Model):
   image = models.ImageField(upload_to = 'photos/' )
   image_name = models.CharField(max_length=50)
   image_caption = models.TextField(blank=True)
   profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
   likes = models.IntegerField(blank=True)
-  comments = models.ManyToManyField(Comments,blank=True)
   user = models.ForeignKey(User, on_delete = models.CASCADE)
 
   @classmethod
-  def get_images_by_user(cls,username):
-    images = cls.objects.get(user = username)
+  def get_images_by_user(cls,userid):
+    images = cls.objects.filter(user = userid)
     return images
 
-  def get_comments(self):
-    comments = self.comments
-    return comments
 
   def __str__(self):
     return self.image_name
+
+class Comments(models.Model):
+  comment = models.TextField()
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  image = models.ForeignKey(Image, on_delete=models.CASCADE)
+
+  @classmethod
+  def delete_comment(cls,username,name):
+    cls.objects.filter(user = username).filter(image = name).delete()
+  
+  def __str__(self):
+    return self.image.image_name
+
 

@@ -76,7 +76,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'instapic.wsgi.application'
 
 LOGOUT_REDIRECT_URL = '/'
-
+LOGIN_REDIRECT_URL = '/'
 
 
 # Database

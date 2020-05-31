@@ -7,7 +7,7 @@
     <div>
       <p>User: {{current_user.username}}</p>
 
-      <img src="{{userprofile.profile_photo}}" alt="picture">
+      <img src="{{userprofile.profile_photo.url}}" alt="picture">
       <p>{{userprofile.bio}}</p>
     </div>
 
@@ -18,6 +18,7 @@
           <img src="{{image.image.url}}" alt="{{image.image_name}}" width="200" height="200">
 
         </div>
+      {%endfor%}
     </div>
 
   </div>
