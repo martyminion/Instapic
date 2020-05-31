@@ -76,7 +76,7 @@ def single_image(request,imageid):
 @login_required
 def add_comment(request,imageid):
   current_user = request.user
-  image = Image.get_single_image(imageid)
+  one_image = Image.get_single_image(imageid)
 
   if request.method == 'POST':
     form = CommentForm(request.POST)
@@ -85,7 +85,7 @@ def add_comment(request,imageid):
       new_comment.user = current_user
       new_comment.image = one_image
       new_comment.save()
-    return redirect(single_image)
+    return redirect(single_image, imageid = imageid)
   else:
     form = CommentForm()
-  return redirect(single_image)
+  return redirect(single_image, imageid = imageid)

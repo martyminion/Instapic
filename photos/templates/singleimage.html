@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-{% load bootstrap%}
+{% load bootstrap4 %}
 
 {%block content%}
 {{block.super}}
@@ -20,8 +20,7 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <p><b>{{one_image.user.username}}</b> {{one_image.image_caption}}</p>
-                  </li>
-                  <li class="list-group-item">
+                  
                     {%for singlecomment in one_image_comments%}
                       <p><strong>{{singlecomment.user.username}}</strong> {{singlecomment.comment}}</p>
                     {%endfor%}
@@ -32,8 +31,8 @@
                     <a href="" class="ml-5 far fa-paper-plane"></a>
                   </li>
                   <li class="list-group-item">
-                    <form action="{url 'addcomment' image.id}" method="POST">
-                      {%csrf%}
+                    <form action="{%url 'addcomment' one_image.id %}" method="POST">
+                      {%csrf_token%}
                       {%bootstrap_form form%}
                       <div class="form-group">
                         <input type="submit" class="btn btn-primary btn-sm" value="Post">
