@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand" style="margin-left: 60px;" href="#">Instapic</a>
-  <form class="form-inline mx-auto">
-    <input class="form-control mr-sm-2 " type="search" placeholder=" search " aria-label="Search">
+  <form class="form-inline mx-auto" action="{% url 'profilesearch' %}" role="search">
+    <input class="form-control mr-sm-2 " type="search" placeholder=" search " aria-label="Search" name="searchname">
   </form>
   <a href="" class="mr-5 fas fa-home"></a>
   <a href="" class="mr-5 	far fa-paper-plane"></a>

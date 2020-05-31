@@ -93,3 +93,27 @@ def add_comment(request,imageid):
   else:
     form = CommentForm()
   return redirect(single_image, imageid = imageid)
+
+# @login_required
+# def follow_user(request,userid):
+#   current_user = request.user
+#   followed_user = Profile.get_user_profile(userid)
+#   followed_user.profile.followers.add(current_user.profile)
+#   followed_user.save()
+
+#   return redirect(home)
+
+@login_required
+def search_user(request):
+  title = 'search results'
+  if 'searchname' in request.GET and request.GET["searchname"]:
+    searchname = request.GET.get("searchname")
+    results = Profile.search_user_profile(searchname)
+    if len(results)>0:
+      return render(request,'results.html',{"title":title,"results":results,"namesearch":searchname})
+    else:
+      message = "Could not find user with that username"
+      return render(request,'results.html',{"title":title,"message":message,"namesearch":searchname})
+  else:
+    message = "Please enter a valid username"
+    return render(request,'results.html',{"title":title,"message":message,"namesearch":searchname})

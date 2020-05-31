@@ -12,6 +12,7 @@ class Profile(models.Model):
   profile_photo = CloudinaryField('image')
   profile_bio = models.TextField(blank=True)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
+  followers = models.ManyToManyField('self',symmetrical=False)
 
   #save a profile
   def save_profile(self):
@@ -28,10 +29,13 @@ class Profile(models.Model):
   def delete_profile(self):
     self.delete()
   @classmethod
-  def get_user_profile(cls,username):
-    user_profile = cls.objects.get(user = username)
+  def get_user_profile(cls,userid):
+    user_profile = cls.objects.get(user = userid)
     return user_profile
-
+    
+  def search_user_profile(search_term):
+    user_profiles = User.objects.filter(username__icontains = search_term)
+    return user_profiles
 
   def __str__(self):
     return self.user.username

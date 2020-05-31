@@ -37,4 +37,8 @@ class ProfileTest(TestCase):
     self.drew.profile.update_profile_bio("We are the champions")
     self.assertEqual(self.drew.profile.profile_bio,"We are the champions")
 
-  
+  def test_search(self):
+    results =Profile.search_user_profile("drew")
+    self.assertTrue(len(results)>0)
+
+
