@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import User,Image,Comments,Profile
 from django.contrib.auth.decorators import login_required
-from .form import ProfileForm,ImageForm
+from .form import ProfileForm,ImageForm,CommentForm
 # Create your views here.
 
 def home(request):
@@ -68,5 +68,24 @@ def single_image(request,imageid):
   one_image = Image.get_single_image(imageid)
   title = one_image.image_name
   one_image_comments = Comments.get_comments_image(imageid)
-  context = {"title":title,"one_image":one_image,"one_image_comments":one_image_comments}
+  current_user = request.user
+  form = CommentForm()
+  context = {"title":title,"one_image":one_image,"one_image_comments":one_image_comments,"form":form}
   return render(request,'singleimage.html',context)
+
+@login_required
+def add_comment(request,imageid):
+  current_user = request.user
+  image = Image.get_single_image(imageid)
+
+  if request.method == 'POST':
+    form = CommentForm(request.POST)
+    if form.is_valid():
+      new_comment = form.save(commit=False)
+      new_comment.user = current_user
+      new_comment.image = one_image
+      new_comment.save()
+    return redirect(single_image)
+  else:
+    form = CommentForm()
+  return redirect(single_image)

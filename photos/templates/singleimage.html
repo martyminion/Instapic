@@ -1,4 +1,5 @@
 {%extends 'base.html'%}
+{% load bootstrap%}
 
 {%block content%}
 {{block.super}}
@@ -26,7 +27,19 @@
                     {%endfor%}
                   </li>
                   <li class="list-group-item">
-                    <a href=""></a>
+                    <a href="" class="ml-5 far fa-heart"></a>
+                    <a href="" class="ml-5 far fa-comment"></a>
+                    <a href="" class="ml-5 far fa-paper-plane"></a>
+                  </li>
+                  <li class="list-group-item">
+                    <form action="{url 'addcomment' image.id}" method="POST">
+                      {%csrf%}
+                      {%bootstrap_form form%}
+                      <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Post">
+                      </div>
+                    </form>
+
                   </li>
                 </ul>
               </div>
