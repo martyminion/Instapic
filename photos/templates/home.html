@@ -1,44 +1,43 @@
 {% extends 'base.html'%}
-
+{% load bootstrap4%}
 
 {%block content%}
 {{block.super}}
   <div class="container">
     <div class="row" style="padding-top: 50px;">
       <div class="col-md-2"></div>
+      {%for single_image in all_images%}
       <div class="col-md-5">
         <div class="card">
           <div class="card-header">
-            <h5 class="card-title">Username</h5>
+            <h5 class="card-title">{{single_image.user.username}}</h5>
           </div>
           <div class="card-body">
-            <img src="https://res.cloudinary.com/instaminion/image/upload/v1590657834/lqmtp0hlgdyroswdzpdd.jpg" alt="Card image cap" class="image img-responsive" width="320" height="400" >
+            <img src="{{single_image.image.url}}" alt="{{single_image.image_name}}" class="image img-responsive" width="400" height="320" >
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <a href="">a</a>
-              <a href="">b</a>
-              <a href="">c</a>
+              <a href="" class="ml-3 far fa-heart"></a>
+              <a href="" class="ml-3 far fa-comment"></a>
+              <a href="" class="ml-3 far fa-paper-plane"></a>
             </li>
           </ul>
           <div class="card-body">
-            <p>username</p>
-            <p>caption</p>
-            <p>time</p>
+            <p>{{single_image.user.username}}</p>
+            <p>{{single_image.image_caption}}</p>
+            <p>remember time</p>
           </div>
           <div class="card-footer">
-            <p>Add Comment</p>
+            <form action="{% url 'addcomment' single_image.id%}">
+              {%csrf_token%}
+              {%bootstrap_form form%}
+            </form>
           </div>
-
         </div>
       </div>
+      {%endfor%}
       <div class="col-md-3">
-        <div class="">
-          <p>username</p>
-          <p>followers</p>
-          
-        </div>
-
+        
       </div>
       <div class="col-md-2">
 

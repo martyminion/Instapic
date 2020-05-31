@@ -7,7 +7,11 @@ from .form import ProfileForm,ImageForm,CommentForm
 def home(request):
 
   title = "Home"
-  return render(request,'home.html',{"title":title})
+  all_images = Image.objects.all()
+  form = CommentForm()
+
+  context = {"title":title,"all_images":all_images,"form":form}
+  return render(request,'home.html',context)
 
 @login_required
 def profile(request):
