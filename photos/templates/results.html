@@ -3,11 +3,21 @@
 {%block content%}
 {{block.super}}
 <div class="container text-center">
-  {%for user in results%}
-  <div class="panel panel-body">
-    <img src="{{user.profile.profile_photo}}" alt="" class="ml-2" width="60" height="60">
-    <p>{{user.username}}</p>
+  <h3>Search results for "{{namesearch}}"</h3>
+
+  <div class="row">
+    {%for user in results%}
+    <div class="col-md-3">
+      <div class="card" style="width: 15rem;">
+        <img src="{{user.profile.profile_photo.url}}" alt=""  class="card-img-top">
+        <div class="card-body">
+          <a href="" class="btn btn-success">Follow {{user.username}}</a>
+        </div>
+      </div>
+      
+      
+    </div>
+    {%endfor%}
   </div>
-  {%endfor%}
 </div>
 {%endblock%}
