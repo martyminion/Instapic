@@ -20,6 +20,7 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <p><b>{{one_image.user.username}}</b> {{one_image.image_caption}}</p>
+                    <p>{{number_of_likes}} likes</p>
                   
                     {%for singlecomment in one_image_comments%}
                       <p><strong>{{singlecomment.user.username}}</strong> {{singlecomment.comment}}</p>

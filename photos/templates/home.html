@@ -12,11 +12,11 @@
             <h5 class="card-title">{{single_image.user.username}}</h5>
           </div>
           <div class="card-body">
-            <img src="{{single_image.image.url}}" alt="{{single_image.image_name}}" class="image img-responsive" width="400" height="320" >
+            <a href="{% url 'singleimage' single_image.id%}"><img src="{{single_image.image.url}}" alt="{{single_image.image_name}}" class="image img-responsive" width="400" height="320" ></a>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <a href="{% url 'likeimage' single_image.id%}" class="ml-3 far fa-heart"></a>
+              <a href="{% url 'likeimage' single_image %}" class="ml-3 far fa-heart"></a>
               <a href="{% url 'singleimage' single_image.id%}" class="ml-3 far fa-comment"></a>
               <a href="" class="ml-3 far fa-paper-plane"></a>
             </li>

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import User,Image,Comments,Profile
+from .models import User,Image,Comments,Profile,Likes
 from django.contrib.auth.decorators import login_required
 from .form import ProfileForm,ImageForm,CommentForm
 from django.http import HttpResponseRedirect
@@ -10,7 +10,7 @@ def home(request):
   title = "Home"
   all_images = Image.objects.all()
   form = CommentForm()
-
+  
   context = {"title":title,"all_images":all_images,"form":form}
   return render(request,'home.html',context)
 
@@ -75,7 +75,8 @@ def single_image(request,imageid):
   one_image_comments = Comments.get_comments_image(imageid)
   current_user = request.user
   form = CommentForm()
-  context = {"title":title,"one_image":one_image,"one_image_comments":one_image_comments,"form":form}
+  number_of_likes = Likes.get_number_of_likes(imageid)
+  context = {"title":title,"one_image":one_image,"one_image_comments":one_image_comments,"form":form,"number_of_likes":number_of_likes}
   return render(request,'singleimage.html',context)
 
 @login_required
@@ -122,5 +123,6 @@ def search_user(request):
 @login_required
 def like_image(request,imageid):
   current_user = request.user
-  Likes.like_image(current_user,imageid)
-  return HttpResponseRedirect(request.path_info)
+  image = Image.objects.get(image_name = imageid)
+  Likes.like_an_image(current_user,image)
+  return redirect(home)

@@ -12,7 +12,7 @@ class Profile(models.Model):
   profile_photo = CloudinaryField('image')
   profile_bio = models.TextField(blank=True)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  followers = models.ManyToManyField('self',symmetrical=False)
+  followers = models.ManyToManyField('self',symmetrical=False,blank = True)
 
   #save a profile
   def save_profile(self):
@@ -98,6 +98,6 @@ class Likes(models.Model):
     number = Likes.objects.filter(like = True, image = imageid).count()
     return number
   
-  def like_an_image(self,userid,imageid):
+  def like_an_image(userid,imageid):
     new_like = Likes(like = True, user = userid, image = imageid)
     new_like.save()
