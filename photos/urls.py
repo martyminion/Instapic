@@ -7,7 +7,8 @@ urlpatterns = [
   path('',views.home, name='home'),
   path('update/profile/',views.update_profile, name='profileupdate'),
   path('profile/',views.profile, name='profile'),
-  path('image/upload/',views.upload_image, name='imageupload')
+  path('image/upload/',views.upload_image, name='imageupload'),
+  path('single/image/<imageid>',views.single_image,name='singleimage'),
 ]
 
 if settings.DEBUG:

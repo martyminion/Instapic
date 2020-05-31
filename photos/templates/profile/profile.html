@@ -18,7 +18,7 @@
     <div class="row">
       {%for image in user_images%}
         <div class="col-md-4">
-          <img src="{{image.image.url}}" alt="{{image.image_name}}" width="200" height="200">
+          <a href="{% url 'singleimage' image.id %}"><img src="{{image.image.url}}" alt="{{image.image_name}}" width="200" height="200"></a>
         </div>
       {%endfor%}
     </div>

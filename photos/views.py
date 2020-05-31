@@ -62,3 +62,11 @@ def upload_image(request):
   else:
     form = ImageForm()
   return render(request,'profile/upload_image.html',{"title":title,"form":form})
+
+@login_required
+def single_image(request,imageid):
+  one_image = Image.get_single_image(imageid)
+  title = one_image.image_name
+  one_image_comments = Comments.get_comments_image(imageid)
+  context = {"title":title,"one_image":one_image,"one_image_comments":one_image_comments}
+  return render(request,'singleimage.html',context)

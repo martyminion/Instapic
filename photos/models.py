@@ -58,6 +58,10 @@ class Image(models.Model):
   def get_images_by_user(cls,userid):
     images = cls.objects.filter(user = userid)
     return images
+  @classmethod
+  def get_single_image(cls,imageid):
+    image = cls.objects.get(id = imageid)
+    return image
 
 
   def __str__(self):
@@ -71,6 +75,11 @@ class Comments(models.Model):
   @classmethod
   def delete_comment(cls,username,name):
     cls.objects.filter(user = username).filter(image = name).delete()
+
+  @classmethod
+  def get_comments_image(cls,imageid):
+    comments = cls.objects.filter(image = imageid)
+    return comments
   
   def __str__(self):
     return self.image.image_name
