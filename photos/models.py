@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 from cloudinary.models import CloudinaryField
 
 
+
 # Create your models here.
 User = get_user_model()
 
@@ -12,7 +13,8 @@ class Profile(models.Model):
   profile_photo = CloudinaryField('image')
   profile_bio = models.TextField(blank=True)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  followers = models.ManyToManyField('self',symmetrical=False,blank = True)
+  followers = models.ManyToManyField('self',related_name='followers',blank = True)
+  following = models.ManyToManyField('self',related_name='following',blank = True)
 
   #save a profile
   def save_profile(self):
@@ -101,3 +103,13 @@ class Likes(models.Model):
   def like_an_image(userid,imageid):
     new_like = Likes(like = True, user = userid, image = imageid)
     new_like.save()
+
+  def unlike_an_image(self):
+   self.like = False
+   self.save()
+  def relike_an_image(self):
+   self.like = True
+   self.save()
+
+  def __str__(self):
+    return self.image.image_name

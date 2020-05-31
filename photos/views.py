@@ -96,14 +96,16 @@ def add_comment(request,imageid):
     form = CommentForm()
   return redirect(single_image, imageid = imageid)
 
-# @login_required
-# def follow_user(request,userid):
-#   current_user = request.user
-#   followed_user = Profile.get_user_profile(userid)
-#   followed_user.profile.followers.add(current_user.profile)
-#   followed_user.save()
+@login_required
+def follow_user(request,userid):
+  current_user = request.user
+  followed_user = Profile.get_user_profile(userid)
+  followed_user.profile.followers.add(current_user.profile)
+  current_user.profile.following.add(followed_user.profile)
+  followed_user.save()
 
-#   return redirect(home)
+  return redirect(home)
+
 
 @login_required
 def search_user(request):
@@ -124,5 +126,15 @@ def search_user(request):
 def like_image(request,imageid):
   current_user = request.user
   image = Image.objects.get(image_name = imageid)
-  Likes.like_an_image(current_user,image)
+  likes = Likes.objects.filter(image = image,user = current_user)
+
+  if len(likes)==0:
+    Likes.like_an_image(current_user,image)
+  else:
+    for like in likes:
+      if like.like == True:
+        like.unlike_an_image()
+      elif like.like is False:
+        like.relike_an_image()
+
   return redirect(home)
