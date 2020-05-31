@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import User,Image,Comments,Profile
 from django.contrib.auth.decorators import login_required
 from .form import ProfileForm,ImageForm,CommentForm
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 def home(request):
@@ -117,3 +118,9 @@ def search_user(request):
   else:
     message = "Please enter a valid username"
     return render(request,'results.html',{"title":title,"message":message,"namesearch":searchname})
+
+@login_required
+def like_image(request,imageid):
+  current_user = request.user
+  Likes.like_image(current_user,imageid)
+  return HttpResponseRedirect(request.path_info)

@@ -32,7 +32,7 @@ class Profile(models.Model):
   def get_user_profile(cls,userid):
     user_profile = cls.objects.get(user = userid)
     return user_profile
-    
+
   def search_user_profile(search_term):
     user_profiles = User.objects.filter(username__icontains = search_term)
     return user_profiles
@@ -55,7 +55,6 @@ class Image(models.Model):
   image_name = models.CharField(max_length=50)
   image_caption = models.TextField(blank=True)
   profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
-  likes = models.IntegerField(blank=True,default=0)
   user = models.ForeignKey(User, on_delete = models.CASCADE)
 
   @classmethod
@@ -89,3 +88,16 @@ class Comments(models.Model):
     return self.image.image_name
 
 
+class Likes(models.Model):
+  like = models.BooleanField(default=False)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  image = models.ForeignKey(Image,on_delete=models.CASCADE)
+
+  @classmethod
+  def get_number_of_likes(cls,imageid):
+    number = Likes.objects.filter(like = True, image = imageid).count()
+    return number
+  
+  def like_an_image(self,userid,imageid):
+    new_like = Likes(like = True, user = userid, image = imageid)
+    new_like.save()
