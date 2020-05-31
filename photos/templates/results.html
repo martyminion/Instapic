@@ -11,7 +11,7 @@
       <div class="card" style="width: 15rem;">
         <img src="{{user.profile.profile_photo.url}}" alt=""  class="card-img-top">
         <div class="card-body">
-          <a href="" class="btn btn-success">Follow {{user.username}}</a>
+          <a href="{% url 'followuser' user.id %}" class="btn btn-success">Follow {{user.username}}</a>
         </div>
       </div>
       

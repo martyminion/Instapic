@@ -11,7 +11,8 @@ urlpatterns = [
   path('single/image/<imageid>',views.single_image,name='singleimage'),
   path('add/comment/<imageid>',views.add_comment,name="addcomment"),
   path('search/profile/',views.search_user,name="profilesearch"),
-  path('image/like/<imageid>',views.like_image, name="likeimage")
+  path('image/like/<imageid>',views.like_image, name="likeimage"),
+  path('follow/user/<userid>',views.follow_user,name="followuser")
 ]
 
 if settings.DEBUG:

@@ -99,11 +99,13 @@ def add_comment(request,imageid):
 @login_required
 def follow_user(request,userid):
   current_user = request.user
-  followed_user = Profile.get_user_profile(userid)
-  followed_user.profile.followers.add(current_user.profile)
-  current_user.profile.following.add(followed_user.profile)
-  followed_user.save()
-
+  if userid == current_user.id:
+    pass
+  else:
+    followed_user = Profile.get_user_profile(userid)
+    followed_user.followers.add(current_user.profile)
+    current_user.profile.following.add(followed_user)
+    followed_user.save()
   return redirect(home)
 
 
