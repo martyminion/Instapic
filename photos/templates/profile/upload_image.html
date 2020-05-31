@@ -9,9 +9,9 @@
       <div class="col-md-4">
       </div>
       <div class="col-md-4">
-        <form action="/image/upload/">
+        <form action="/image/upload/" method="POST" enctype="multipart/form-data">
           {%csrf_token%}
-        {{bootstrap_form form}}
+        {%bootstrap_form form%}
         <div class="form-group">
           <input type="submit" class="btn btn-primary btn-sm" value="Upload">
         </div>

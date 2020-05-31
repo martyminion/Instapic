@@ -51,7 +51,7 @@ class Image(models.Model):
   image_name = models.CharField(max_length=50)
   image_caption = models.TextField(blank=True)
   profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
-  likes = models.IntegerField(blank=True)
+  likes = models.IntegerField(blank=True,default=0)
   user = models.ForeignKey(User, on_delete = models.CASCADE)
 
   @classmethod

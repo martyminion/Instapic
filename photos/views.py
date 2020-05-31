@@ -16,6 +16,9 @@ def profile(request):
   userprofile = Profile.get_user_profile(current_user)
   user_images = Image.get_images_by_user(current_user)
 
+  print('*'*50)
+  print(user_images)
+
   context = {"title":title,"current_user":current_user,"userprofile":userprofile,"user_images":user_images}
 
   return render(request,'profile/profile.html',context)
@@ -54,7 +57,8 @@ def upload_image(request):
       new_image.profile = current_user.profile
       new_image.user = current_user
       new_image.save()
-      redirect(profile)
+
+    return redirect(profile)
   else:
     form = ImageForm()
   return render(request,'profile/upload_image.html',{"title":title,"form":form})
