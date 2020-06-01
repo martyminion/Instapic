@@ -14,7 +14,8 @@ urlpatterns = [
   path('search/profile/',views.search_user,name="profilesearch"),
   path('image/like/<imageid>',views.like_image, name="likeimage"),
   path('follow/user/<userid>',views.follow_user,name="followuser"),
-  path('explore/',views.explore,name='explore')
+  path('explore/',views.explore,name='explore'),
+  path('user/profile/<userid>',views.user_profile,name='veiwprofile')
 ]
 
 if settings.DEBUG:

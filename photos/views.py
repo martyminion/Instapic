@@ -44,6 +44,22 @@ def profile(request):
   return render(request,'profile/profile.html',context)
 
 @login_required
+def user_profile(request,userid):
+  title = "Profile"
+  current_user = User.objects.get(id = userid)
+  userprofile = Profile.get_user_profile(userid)
+  user_images = Image.get_images_by_user(userid)
+  followers = userprofile.followers.all()
+  following = userprofile.following.all()
+  numfollowers = len(userprofile.followers.all())
+  numfollowing = len(userprofile.following.all())
+  context = {"title":title,"current_user":current_user,"userprofile":userprofile,"user_images":user_images,"followers":followers,'following':following,
+  'numfollowers':numfollowers,'numfollowing':numfollowing}
+
+  return render(request,'profile/profile.html',context)
+
+
+@login_required
 def update_profile(request):
   title = 'Update Profile'
   current_user = request.user
