@@ -12,7 +12,27 @@
       <p>{{userprofile.bio}}</p>
     </div>
     <div>
-      <a href="{% url 'imageupload' %}" class="btn ">Upload image</a>
+      <a href="{% url 'imageupload' %}" class="btn ">Change profile picture</a>
+    </div>
+    <div>
+      <p>{{numfollowers}} followers</p>
+      <p>{{numfollowing}} following</p>
+      <!-- <table>
+        <tr>
+          {%for follower in followers%}
+          <td>
+            <img src="{{follower.profile_photo.url}}" alt="picture"  width="200" height="200">
+            <p>{{follower.user.username}}</p>
+          </td>
+          {%endfor%}
+          {%for follower in following%}
+          <td>
+            <img src="{{follower.profile_photo.url}}" alt="picture"  width="200" height="200">
+            <p>{{follower.user.username}}</p>
+          </td>
+          {%endfor%}
+        </tr>
+      </table> -->
     </div>
 
     <div class="row">

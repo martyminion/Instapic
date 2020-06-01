@@ -32,14 +32,18 @@
                     <a href="" class="ml-3 far fa-paper-plane"></a>
                   </li>
                   <li class="list-group-item">
-                    <form action="{%url 'addcomment' one_image.id %}" method="POST">
+                    <!-- <form action="{%url 'addcomment' one_image.id %}" method="POST">
                       {%csrf_token%}
                       {%bootstrap_form form%}
                       <div class="form-group">
                         <input type="submit" class="btn btn-primary btn-sm" value="Post">
                       </div>
+                    </form> -->
+                    <form class="form-group" action="{% url 'addcomment' one_image.id %}">
+                      {%csrf_token%}
+                      <input class="form-control ml-sm-2 " type="text" placeholder="Add comment" aria-label="comment" name="new_comment">
+                      <button class="btn btn-outline-primary form-inline" style="margin-top: 5px;" type="submit">Post</button>
                     </form>
-
                   </li>
                 </ul>
               </div>

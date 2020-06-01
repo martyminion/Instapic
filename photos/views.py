@@ -20,11 +20,12 @@ def profile(request):
   current_user = request.user
   userprofile = Profile.get_user_profile(current_user)
   user_images = Image.get_images_by_user(current_user)
-
-  print('*'*50)
-  print(user_images)
-
-  context = {"title":title,"current_user":current_user,"userprofile":userprofile,"user_images":user_images}
+  followers = userprofile.followers.all()
+  following = userprofile.following.all()
+  numfollowers = len(userprofile.followers.all())
+  numfollowing = len(userprofile.following.all())
+  context = {"title":title,"current_user":current_user,"userprofile":userprofile,"user_images":user_images,"followers":followers,'following':following,
+  'numfollowers':numfollowers,'numfollowing':numfollowing}
 
   return render(request,'profile/profile.html',context)
 
@@ -84,30 +85,24 @@ def add_comment(request,imageid):
   current_user = request.user
   one_image = Image.get_single_image(imageid)
 
-  if request.method == 'POST':
-    form = CommentForm(request.POST)
-    if form.is_valid():
-      new_comment = form.save(commit=False)
-      new_comment.user = current_user
-      new_comment.image = one_image
-      new_comment.save()
-    return redirect(single_image, imageid = imageid)
-  else:
-    form = CommentForm()
+  if 'new_comment' in request.GET and request.GET['new_comment']:
+    newcomment = request.GET.get('new_comment')
+    user_comment = Comments(comment = newcomment, user = current_user, image = one_image)
+    user_comment.save()
   return redirect(single_image, imageid = imageid)
+  
 
-@login_required
-def follow_user(request,userid):
-  current_user = request.user
-  if userid == current_user.id:
-    pass
-  else:
-    followed_user = Profile.get_user_profile(userid)
-    followed_user.followers.add(current_user.profile)
-    current_user.profile.following.add(followed_user)
-    followed_user.save()
-  return redirect(home)
-
+  # if request.method == 'POST':
+  #   form = CommentForm(request.POST)
+  #   if form.is_valid():
+  #     new_comment = form.save(commit=False)
+  #     new_comment.user = current_user
+  #     new_comment.image = one_image
+  #     new_comment.save()
+  #   return redirect(single_image, imageid = imageid)
+  # else:
+  #   form = CommentForm()
+  # return redirect(single_image, imageid = imageid)
 
 @login_required
 def search_user(request):
@@ -123,6 +118,19 @@ def search_user(request):
   else:
     message = "Please enter a valid username"
     return render(request,'results.html',{"title":title,"message":message,"namesearch":searchname})
+
+@login_required
+def follow_user(request,userid):
+  current_user = request.user
+  if userid == current_user.id:
+    pass
+  else:
+    followed_user = Profile.get_user_profile(userid)
+    followed_user.followers.add(current_user.profile)
+    current_user.profile.following.add(followed_user)
+    followed_user.save()
+  return redirect(home)
+
 
 @login_required
 def like_image(request,imageid):

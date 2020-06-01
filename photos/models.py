@@ -85,6 +85,7 @@ class Comments(models.Model):
   def get_comments_image(cls,imageid):
     comments = cls.objects.filter(image = imageid)
     return comments
+
   
   def __str__(self):
     return self.image.image_name
