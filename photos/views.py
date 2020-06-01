@@ -9,14 +9,18 @@ from django.db.models.signals import post_save
 from .email import send_welcome_email
 # Create your views here.
 
+@login_required
 def home(request):
-
-  title = "Home"
-  all_images = Image.objects.all()
-  
+  current_user = request.user
+  title = "Instapic"
+  all_images = []
+  for profile in current_user.profile.followers.all():
+    profimages = Image.objects.filter(user = profile.user)
+    all_images.append(profimages)
+    print(all_images)
   context = {"title":title,"all_images":all_images}
   return render(request,'home.html',context)
-   
+
 
 @login_required
 def profile(request):
