@@ -30,10 +30,15 @@
   </div>
   <h3> {{current_user.username}}'s Posts</h3>
   <div class="row">
-    {%for image in user_images%}
+    {%for image in user_images%}  
     <div class="col-md-4">
-      <a href="{% url 'singleimage' image.id %}"><img src="{{image.image.url}}" alt="{{image.image_name}}" width="200"
-          height="200"></a>
+      <div class="card" style="width: 15rem;">
+        <a href="{% url 'singleimage' image.id %}"><img src="{{image.image.url}}" alt="{{image.image_name}}" width="200" height="200" class="userimages"></a>
+        <div class="card-body">
+          <h5 class="card-title">{{image.image_name}}</h5>
+          <p class="card-text">{{image.image_caption|truncatechars:50}}..</p>
+        </div>
+      </div>
     </div>
     {%endfor%}
   </div>
