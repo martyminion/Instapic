@@ -21,12 +21,14 @@
   <body>
     {% block content %}
       {% include 'navbar.html'%}
+      
     {%endblock%}
 
     {%block scripts%}
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       {%bootstrap_javascript%}
     {%endblock%}
+    <footer class="text-center jumbotron">Brought to you with love from the InstaPic Team<br><span>Copyright 2020</span></footer>
 
   </body>
 </html>

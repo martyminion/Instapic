@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{% load static%}
+
+{%block content%}
+{{block.super}}
+<div class="container text-center">
+  <div class="row" style="margin-top: 30px;">
+    {%for image in all_images%}  
+    <div class="col-md-4 ">
+      <div class="card" style="width: 15rem; margin-top: 20px;">
+        <a href="{% url 'singleimage' image.id %}"><img src="{{image.image.url}}" alt="{{image.image_name}}" width="237" height="200" class="userimages"></a>
+        <div class="card-body">
+          <h5 class="card-title"> <strong>{{image.user.username}}</strong> {{image.image_name}}</h5>
+          <p class="card-text">{{image.image_caption|truncatechars:50}}..</p>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+
+</div>
+{%endblock%}

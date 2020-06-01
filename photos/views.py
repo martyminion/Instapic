@@ -21,6 +21,12 @@ def home(request):
   context = {"title":title,"all_images":all_images}
   return render(request,'home.html',context)
 
+@login_required   
+def explore(request):
+  title = 'Explore'
+  all_images = Image.objects.all()
+  context = {"title":title,"all_images":all_images}
+  return render(request,'explore.html',context)
 
 @login_required
 def profile(request):
