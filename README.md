@@ -1,2 +1,0 @@
-# Instapic
-An instagram clone

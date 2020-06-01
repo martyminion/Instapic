@@ -9,6 +9,9 @@ from django.db.models.signals import post_save
 from .email import send_welcome_email
 # Create your views here.
 
+def welcome(request):
+  title = 'Welcome'
+  return render(request,'welcome.html',{'title':title})
 @login_required
 def home(request):
   current_user = request.user

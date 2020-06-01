@@ -10,4 +10,7 @@
 body{
   background-color: rgb(211, 222, 223,0.5);
 }
-
+.welcometitle{
+  font-family: 'Pacifico', cursive
+}
+;
