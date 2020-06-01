@@ -3,6 +3,7 @@ from .models import User,Image,Comments,Profile,Likes
 from django.contrib.auth.decorators import login_required
 from .form import ProfileForm,ImageForm
 from django.http import HttpResponseRedirect
+import datetime as dt
 # Create your views here.
 
 def home(request):
@@ -61,6 +62,7 @@ def upload_image(request):
       new_image = form.save(commit=False)
       new_image.profile = current_user.profile
       new_image.user = current_user
+      new_image.upload_date = dt.date.today()
       new_image.save()
 
     return redirect(profile)
@@ -74,9 +76,9 @@ def single_image(request,imageid):
   title = one_image.image_name
   one_image_comments = Comments.get_comments_image(imageid)
   current_user = request.user
-  form = CommentForm()
+
   number_of_likes = Likes.get_number_of_likes(imageid)
-  context = {"title":title,"one_image":one_image,"one_image_comments":one_image_comments,"form":form,"number_of_likes":number_of_likes}
+  context = {"title":title,"one_image":one_image,"one_image_comments":one_image_comments,"number_of_likes":number_of_likes}
   return render(request,'singleimage.html',context)
 
 @login_required
