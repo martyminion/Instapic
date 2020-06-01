@@ -1,48 +1,46 @@
-{%extends 'base.html' %}
+{%extends 'profile/profilebase.html' %}
+
 
 {%block content%}
 {{block.super}}
-  <div class="container text-center">
-
-    <h2>Welcome to your Profile</h2>
-    <div>
-      <p>User: {{current_user.username}}</p>
-
-      <img src="{{userprofile.profile_photo.url}}" alt="picture"  width="200" height="200">
-      <p>{{userprofile.bio}}</p>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-3">
     </div>
-    <div>
-      <a href="{% url 'imageupload' %}" class="btn ">Change profile picture</a>
+    <div class="col-md-6">
+      <div>
+        <table class="table table-borderless">
+          <tr>
+            <td>
+              <img src="{{userprofile.profile_photo.url}}" alt="picture" width="200" height="200" class="profpicimg">
+            </td>
+            <td>
+              <p>{{current_user.username}}</p>
+              <p>{{user.profile.profile_bio}}</p>
+              <div>
+                <p>{{numfollowers}} followers {{numfollowing}} following</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <div>
-      <p>{{numfollowers}} followers</p>
-      <p>{{numfollowing}} following</p>
-      <!-- <table>
-        <tr>
-          {%for follower in followers%}
-          <td>
-            <img src="{{follower.profile_photo.url}}" alt="picture"  width="200" height="200">
-            <p>{{follower.user.username}}</p>
-          </td>
-          {%endfor%}
-          {%for follower in following%}
-          <td>
-            <img src="{{follower.profile_photo.url}}" alt="picture"  width="200" height="200">
-            <p>{{follower.user.username}}</p>
-          </td>
-          {%endfor%}
-        </tr>
-      </table> -->
+    <div class="col-md-3">
     </div>
-
-    <div class="row">
-      {%for image in user_images%}
-        <div class="col-md-4">
-          <a href="{% url 'singleimage' image.id %}"><img src="{{image.image.url}}" alt="{{image.image_name}}" width="200" height="200"></a>
-        </div>
-      {%endfor%}
-    </div>
-
   </div>
+  <h3> {{current_user.username}}'s Posts</h3>
+  <div class="row">
+    {%for image in user_images%}
+    <div class="col-md-4">
+      <a href="{% url 'singleimage' image.id %}"><img src="{{image.image.url}}" alt="{{image.image_name}}" width="200"
+          height="200"></a>
+    </div>
+    {%endfor%}
+  </div>
+  <div>
+    <a href="{% url 'imageupload' %}" class="btn btn-outline-success" style="margin-top: 20px;">Upload new image</a>
+  </div>
+
+</div>
 
 {%endblock%}

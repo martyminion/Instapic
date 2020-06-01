@@ -8,7 +8,8 @@
   <a href="" class="mr-5 far fa-compass"></a>
   <a href="" class="mr-5 far fa-heart"></a>
   {% if user.is_authenticated%}
-  <a href="/profile/" class="mr-5 ">e</a>
+  <!-- <a href="/profile/" class="mr-5 "><img src="{{user.profile.profile_photo.url}}" alt="" class="navprofilepic"></a> -->
+  <a href="/profile/" class="mr-5 far fa-heart">Profile</a>
   <a href="/accounts/password_change"> Change Password</a>
   <a href="/accounts/logout/">User Logout</a>
   <a href="/update/profile/">Update Profile</a>

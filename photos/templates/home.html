@@ -13,6 +13,7 @@
           </div>
           <div class="card-body">
             <a href="{% url 'singleimage' single_image.id%}"><img src="{{single_image.image.url}}" alt="{{single_image.image_name}}" class="image img-responsive" width="400" height="320" ></a>
+            <p> posted {{one_image.upload_date|timesince}}</p>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -22,14 +23,14 @@
             </li>
           </ul>
           <div class="card-body">
-            <p>{{single_image.user.username}}</p>
-            <p>{{single_image.image_caption}}</p>
-            <p>remember time</p>
+            <p>{{single_image.user.username}} {{single_image.image_caption}}</p>
+            
           </div>
-          <div class="card-footer">
-            <form action="{% url 'addcomment' single_image.id%}">
+          <div class="card-body">
+            <form class="form-group" action="{% url 'addcomment' single_image.id %}">
               {%csrf_token%}
-              {%bootstrap_form form%}
+              <input class="form-control ml-sm-2 " type="text" placeholder="Add comment" aria-label="comment" name="new_comment">
+              <button class="btn btn-outline-primary form-inline" style="margin-top: 5px;" type="submit">Post</button>
             </form>
           </div>
         </div>

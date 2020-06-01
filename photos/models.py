@@ -58,6 +58,7 @@ class Image(models.Model):
   image_caption = models.TextField(blank=True)
   profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
   user = models.ForeignKey(User, on_delete = models.CASCADE)
+  upload_date = models.DateTimeField(auto_now_add=True)
 
   @classmethod
   def get_images_by_user(cls,userid):

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import User,Image,Comments,Profile,Likes
 from django.contrib.auth.decorators import login_required
-from .form import ProfileForm,ImageForm,CommentForm
+from .form import ProfileForm,ImageForm
 from django.http import HttpResponseRedirect
 # Create your views here.
 
@@ -9,9 +9,8 @@ def home(request):
 
   title = "Home"
   all_images = Image.objects.all()
-  form = CommentForm()
   
-  context = {"title":title,"all_images":all_images,"form":form}
+  context = {"title":title,"all_images":all_images}
   return render(request,'home.html',context)
 
 @login_required
