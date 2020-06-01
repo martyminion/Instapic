@@ -103,8 +103,7 @@ $ pip install psycopg2
 
 ## Deployment
 
-The app can be found live on heroku: https://lifeinpicture.herokuapp.com/
-
+The app can be found live on heroku: https://martinstapic.herokuapp.com/
 
 ## Built With
 
