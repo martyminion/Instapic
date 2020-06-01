@@ -1,0 +1,9 @@
+Hello {{name}}
+
+The Instapic team is delighted to have you join us.
+Cheers to a good time.
+#Instapic
+#Be Safe
+
+from the Instapic team
+May food be your fortune

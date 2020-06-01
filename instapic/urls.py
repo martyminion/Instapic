@@ -23,7 +23,7 @@ from django.urls import reverse_lazy
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('photos.urls')),
-    path('accounts/register/',RegistrationView.as_view(success_url=reverse_lazy('profileupdate')),name='django_registration_register'),
+    path('accounts/register/',RegistrationView.as_view(success_url=reverse_lazy('newprofile')),name='django_registration_register'),
     path('accounts/',include('django_registration.backends.one_step.urls')),
     path('accounts/',include('django.contrib.auth.urls')),
     path('accounts/login', LoginView.as_view(redirect_field_name = '/',success_url = '/'),name='login'),

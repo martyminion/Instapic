@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from .form import ProfileForm,ImageForm
 from django.http import HttpResponseRedirect
 import datetime as dt
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from .email import send_welcome_email
 # Create your views here.
 
 def home(request):
@@ -13,6 +16,7 @@ def home(request):
   
   context = {"title":title,"all_images":all_images}
   return render(request,'home.html',context)
+   
 
 @login_required
 def profile(request):
@@ -50,6 +54,30 @@ def update_profile(request):
     form = ProfileForm()
   context = {"current_user":current_user,"title":title,"form":form}
   return render(request,'profile/profile_update.html',context)
+
+@login_required
+def new_profile(request):
+  title = 'Update Profile'
+  current_user = request.user
+  
+  if request.method == 'POST':
+    form = ProfileForm(request.POST, request.FILES)
+    if form.is_valid():
+      photo = form.cleaned_data['profile_photo']
+      bio = form.cleaned_data['profile_bio']
+
+      new_profile = Profile.get_user_profile(current_user)
+      new_profile.profile_photo = photo
+      new_profile.profile_bio = bio
+
+      new_profile.save()
+      send_welcome_email(current_user.username,current_user.email)
+      return redirect(profile)
+  else:
+    form = ProfileForm()
+  context = {"current_user":current_user,"title":title,"form":form}
+  return render(request,'profile/new_profile.html',context)
+
 
 @login_required
 def upload_image(request):

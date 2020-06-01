@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% load bootstrap4%}
+
+{%block content%}
+{{block.super}}
+  <div class="container">
+    <form action="{% url 'newprofile' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {%bootstrap_form form%}
+      <input type="submit" class="btn btn-success btn-lg" value="Create Profile">
+    </form>
+  </div>
+{%endblock%}
