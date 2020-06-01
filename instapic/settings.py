@@ -14,6 +14,7 @@ import os
 from decouple import config,Csv
 import dj_database_url
 import cloudinary
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,7 +31,7 @@ DEBUG = config('DEBUG',default=False,cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS',cast=Csv())
 
-
+MODE = config('MODE')
 # Application definition
 
 INSTALLED_APPS = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'instapic.urls'
@@ -143,6 +145,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIA_URL = '/media/'
@@ -160,3 +163,6 @@ EMAIL_HOST = config("EMAIL_HOST")
 EMAIL_PORT = config("EMAIL_PORT")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+
+#Configure Django App for Heroku
+django_heroku.settings(locals())

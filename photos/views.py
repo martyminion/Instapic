@@ -20,7 +20,8 @@ def home(request):
   for profile in current_user.profile.followers.all():
     profimages = Image.objects.filter(user = profile.user)
     all_images.append(profimages)
-    print(all_images)
+  my_images = Image.get_images_by_user(current_user.id)
+  all_images.append(my_images)
   context = {"title":title,"all_images":all_images}
   return render(request,'home.html',context)
 
