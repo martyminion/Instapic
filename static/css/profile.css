@@ -5,3 +5,11 @@
 .userimages{
   margin-top: 10px;
 }
+
+body{
+  background-color: rgba(228, 231, 231, 0.5);
+  
+}
+.card{
+  margin-top: 20px;
+}

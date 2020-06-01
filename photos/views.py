@@ -93,18 +93,6 @@ def add_comment(request,imageid):
   return redirect(single_image, imageid = imageid)
   
 
-  # if request.method == 'POST':
-  #   form = CommentForm(request.POST)
-  #   if form.is_valid():
-  #     new_comment = form.save(commit=False)
-  #     new_comment.user = current_user
-  #     new_comment.image = one_image
-  #     new_comment.save()
-  #   return redirect(single_image, imageid = imageid)
-  # else:
-  #   form = CommentForm()
-  # return redirect(single_image, imageid = imageid)
-
 @login_required
 def search_user(request):
   title = 'search results'

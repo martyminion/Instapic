@@ -1,8 +1,9 @@
 {%load static%}
 
 <link rel="stylesheet" href="{% static 'css/navbar.css'%}">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar">
   <a class="navbar-brand" href="{% url 'home'%}">Instapic</a>
   <form class="form-inline mx-auto" action="{% url 'profilesearch' %}" role="search">
     <input class="form-control mr-sm-2 " type="search" placeholder=" search " aria-label="Search" name="searchname">
@@ -17,7 +18,7 @@
       <a class="dropdown-item" href="/update/profile/">Update Profile</a>
     </div>
   </div> 
-  <a href="" class="mr-5 fas fa-home"></a>
+  <a href="/" class="mr-5 fas fa-home"></a>
   <a href="" class="mr-5 	far fa-paper-plane"></a>
   <a href="" class="mr-5 far fa-compass"></a>
   <a href="" class="mr-5 far fa-heart"></a>
