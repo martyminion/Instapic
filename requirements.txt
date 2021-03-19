@@ -5,7 +5,7 @@ certifi==2020.4.5.1
 cloudinary==1.20.0
 confusable-homoglyphs==3.2.0
 dj-database-url==0.5.0
-Django==3.0.6
+Django==3.1.6
 django-bootstrap4==1.1.1
 django-heroku==0.3.1
 django-registration==3.1
